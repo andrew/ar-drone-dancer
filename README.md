@@ -2,6 +2,8 @@
 
 Make your Parrot AR Drone dance along with a song
 
+Video of it in action: http://www.youtube.com/watch?v=av1V9yRmnVo&feature=youtu.be
+
 ## Libraries
 
 * webserver - express (https://github.com/visionmedia/express)
