@@ -1,19 +1,19 @@
-# AR Drone Keyboard Controller
+# AR Drone Dancer
 
-Control your Parrot AR Drone with your a keyboard via a web-browser
+Make your Parrot AR Drone dance along with a song
 
 ## Libraries
 
 * webserver - express (https://github.com/visionmedia/express)
 * websockets - socket.io (https://github.com/LearnBoost/socket.io)
 * drone client - node-ar-drone (https://github.com/felixge/node-ar-drone)
-* keyboard library - KeyboardJS (https://github.com/RobertWHurst/KeyboardJS)
+* audio library - dancer.js (https://github.com/jsantell/dancer.js)
 
 ## Usage
 
-1. git clone https://github.com/andrew/ar-drone-keyboard
+1. git clone https://github.com/andrew/ar-drone-dancer
 
-2. cd ar-drone-keyboard
+2. cd ar-drone-dancer
 
 3. npm install
 
@@ -23,18 +23,7 @@ Control your Parrot AR Drone with your a keyboard via a web-browser
 
 6. open `http://localhost:8080`
 
-## Controls
-
-Take off with `space`
-
-forward,backward,left,right with `wsad`
-
-up, down, turn left, turn right with `ikjl`
-
-land with `x`
-
-increase speed `=`
-decrease speed `-`
+7. hit play
 
 ## Copyright
 
