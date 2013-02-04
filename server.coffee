@@ -60,21 +60,25 @@ setInterval (->
   control.flush()
 ), 30
 
-drone = new Drone(0.5)
+drone = new Drone(0.8)
 
-drone.speed = 1.0
-
-console.log drone 
 drone.land()
 
 io = require("socket.io").listen(8081)
 io.sockets.on "connection", (socket) ->
-  socket.on 'fly up', -> console.log 'fly up'
-  socket.on 'fly down', -> console.log 'fly down'
+  socket.on 'fly up', ->
+    console.log 'fly up'
+    drone.commands(['up'])
+  socket.on 'fly down', ->
+    console.log 'fly down'
+    drone.commands(['down'])
+  socket.on "stop", ->
+    console.log('stop')
+    drone.stop()
   
   socket.on "takeoff", drone.takeoff
   socket.on "land", drone.land
-  socket.on "stop", drone.stop
+  
   socket.on "command", drone.commands
   socket.on "increaseSpeed", drone.increaseSpeed
   socket.on "decreaseSpeed", drone.decreaseSpeed

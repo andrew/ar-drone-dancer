@@ -2,32 +2,78 @@
 <html>
   <head>
     <style type="text/css" media="screen">
-      #box{
-        background:red;
-        width:100px;
-        height:100px;
+      body{
+        background:url(background.jpeg);
+        background-size:100%;
+      }
+      body.beat{
+        background-position:0px -2px;
+      }
+      #loading{
         position:fixed;
         left:50%;
         top:50%;
-        border-radius:50px;
-        margin:-50px 0 0 -50px;
+        z-index:5;
+        width:200px;
+        text-align:center;
+        margin:-20px 0 0 -100px;
+      }
+      #loading.beat{
+        margin-top:-22px;
+      }
+      #loading a{
+        color:#fff;
+        font-weight:bold;
+        font-family:helvetica;
+        text-decoration:none;
+        font-size:40px;
+      }
+      #box{
+        background:#555;
+        width:200px;
+        height:200px;
+        position:fixed;
+        left:50%;
+        top:50%;
+        border-radius:110px;
+        margin:-100px 0 0 -100px;
         -webkit-transition: all 0.05s ease-in-out;
         -moz-transition: all 0.05s ease-in-out;
         -o-transition: all 0.05s ease-in-out;
         transition: all 0.05s ease-in-out;
+        background: -webkit-radial-gradient(center, ellipse cover, #7d7e7d 0%,#0e0e0e 100%);
+        -webkit-transform:translate3d(0,0,0);
+      }
+      #speaker{
+        width:600px;
+        height:600px;
+        position:fixed;
+        background:#999;
+        background: -webkit-radial-gradient(center, ellipse cover, #000000 0%,#000000 0%,#626970 1%,#828c95 7%,#828c95 14%,#626970 22%,#828c95 30%,#626970 38%,#828c95 47%,#626970 55%,#828c95 63%,#626970 65%,#070707 65%,#2b2726 72%,#2b2726 92%,#606060 100%);
+        left:50%;
+        top:50%;
+        border-radius:600px;
+        margin:-300px 0 0 -300px;
+        -webkit-transform:translate3d(0,0,0);
+      }
+      #speaker.beat{
+        margin-top:-302px;
       }
       #box.beat{
-        width:200px;
-        height:200px;
-        border-radius:100px;
-        margin:-100px 0 0 -100px;
+        width:300px;
+        height:300px;
+        border-radius:150px;
+        margin:-152px 0 0 -150px;
       }
     </style>
   </head>
   <body>
-    <div id="loading">Loading . . .</div>
-    <div id='box'></div>
+    <div id="loading"></div>
+    <div id='speaker'>
+        <div id='box'></div>
+    </div>
     <!-- Dancer.js -->
+    <script src="jquery-1.7.2.min.js"></script>
     <script src="src/dancer.js"></script>
     <script src="src/support.js"></script>
     <script src="src/kick.js"></script>
@@ -36,84 +82,13 @@
     <script src="src/adapterFlash.js"></script>
     <script src="lib/fft.js"></script>
     <script src="lib/flash_detect.js"></script>
-    
+
+    <!-- socket.io -->
     <script src="http://localhost:8081/socket.io/socket.io.js"></script>
     <script>
       var socket = io.connect('http://localhost:8081');
-      socket.on('news', function (data) {
-        console.log(data);
-        socket.emit('my other event', { my: '2' });
-      });
-
-      var timer
-      var log
-      var mapping = {
-        'space': 'takeoff',
-        'x' : 'land',
-        'w' : 'front',
-        's' : 'back',
-        'a' : 'left',
-        'd' : 'right',
-        'j' : 'counterClockwise',
-        'l' : 'clockwise',
-        'i' : 'up',
-        'k' : 'down',
-        'dash': 'decreaseSpeed',
-        'equal': 'increaseSpeed',
-      }
-
-      // $(function(){
-        timer = setInterval(tick, 30)
-        // log = $('#log')
-    
-        for (var k in mapping) {
-          if (mapping.hasOwnProperty(k)) {
-            // $('#controls').append(k + ' => ' + mapping[k] + '<br/>');
-          }
-        }
-      // })
-
-      var tick = function(){
-        keys = KeyboardJS.activeKeys()
-        log.text(keys)
-
-        if(keys.length > 0) {
-
-          commands = []
-          for (var i = 0; i < keys.length; i++) {
-            key = keys[i]
-            command = mapping[key]
-            if(command != undefined){
-              commands.push(command)
-            }
-          }
-
-          if(commands.length > 0){
-            log.text(commands)
-            if(commands[0] === 'takeoff'){
-              socket.emit('takeoff');
-            } else if(commands[0] === 'land'){
-              socket.emit('land');
-            } else if(commands[0] === 'increaseSpeed'){
-              socket.emit('increaseSpeed');
-            } else if(commands[0] === 'decreaseSpeed'){
-              socket.emit('decreaseSpeed');
-            } else{
-              socket.emit('command', commands);
-            }
-          } else{
-            socket.emit('stop');
-            log.text('')
-          }
-        } else{
-          log.text('')
-          socket.emit('stop');
-        }
-      }
-
     </script>
-    
-    
+
     <!-- Demo stuff -->
     <script src="js/player.js"></script>
 	</body>
